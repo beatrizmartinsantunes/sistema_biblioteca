@@ -2,9 +2,20 @@ import os
 print("Sistema de uma biblioteca")
 def limpa():
     os.system('cls')
-class Biblioteca:
-    def __init__(self):
-        self.livros = []
+
+import csv
+'''with open('livro.csv','w',encoding='utf-8') as estoque_de_livros:
+    escritor = csv.writer(estoque_de_livros)
+    escritor.writerow(['nome','autor','ano_publicado','codigo','status'])
+estrutura = ['nome','autor','ano_publicado','codigo','status']'''
+
+def cadastro_produto(nome,autor,ano_publicado,codigo,status):
+    with open('livro.csv','a',newline='') as estoque:
+        produto = {'nome':nome,'autor':autor,'ano_publicado':ano_publicado,'codigo':codigo,'status':status}
+        escritor = csv.DictWriter(estoque,fieldnames=estrutura)
+        escritor.writerow(produto)
+
+cadastro_produto('O Senhor dos Anéis','J.R.R. Tolkien',1954,'001','Disponível')
 
 def cadastro_de_livros():
     print("   CADRASTRO DE LIVROS    ")
