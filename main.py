@@ -139,14 +139,14 @@ def organizar_e_listar(livros):
 def buscar_livros(livros):
     print("\nBUSCAR LIVROS:")
     busca = input("Digite o título ou autor: ")
- 
     
+    encontrado = 0
     for livro in livros:
         if busca in livro["titulo"] or busca in livro["autor"]:
-            print(
-                f"[{livro['status'].upper()}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}") 
-
-    print("Nenhum livro encontrado com esse termo.")
+            print(f"[{livro['status'].upper()}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}") 
+            encontrado = encontrado+1
+    if encontrado == 0:
+        print("Nenhum livro encontrado com esse termo.")
 
 def menu():
     acervo = carregar_dados()
@@ -182,5 +182,3 @@ def menu():
             break
         else:
             print("Opção inválida")
-
-menu()
