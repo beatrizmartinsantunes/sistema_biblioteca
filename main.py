@@ -182,4 +182,6 @@ def menu():
             break
         else:
             print("Opção inválida")
-if __name__ == "__main__": menu()
+            break
+limpa()
+menu()
