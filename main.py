@@ -154,7 +154,7 @@ def menu():
     while True:
 
 
-        print("\nMENU PRINCIPAL DA BIBLIOTECA:\n")
+        print("\nMENU PRINCIPAL DA BIBLIOTECA:")
         print("1. Cadastrar Livro")
         print("2. Registrar Empréstimo")
         print("3. Registrar Devolução")
