@@ -1,28 +1,28 @@
 import csv
-import os
+import os # Necessário para a função de limpar o terminal
 
-def limpa():
+def limpa(): # Limpa o terminal
     os.system('cls')
    
-def cabecalho():
+def cabecalho(): 
     print("Programa feito por Beatriz Martins")
    
 def carregar_dados():
     
-    with open("livros.csv", "r", encoding="utf-8") as leitor_de_arquivo:
+    with open("livros.csv", "r", encoding="utf-8") as leitor_de_arquivo: # "r" significa que não ira modificar nada do livros.csv
         leitor = csv.reader(leitor_de_arquivo)
-        livros = []
-        for dados in leitor:
+        livros = [] # Livros é onde fica todos os livros na lista que é apagada quando o programa é finalizado
+        for dados in leitor: # os dados são as informacções de cada livro
         
-                livro = {
+                livro = { # Livro é cada livro que fica em livros e tem dados
                     "titulo": dados[0],
                     "autor": dados[1],
                     "ano": int(dados[2]),
                     "isbn": dados[3],
                     "status": dados[4],
                 }
-                livros.append(livro)
-        return livros
+                livros.append(livro)# Vai anexar o livro na lista livros
+        
     
 def salvar_dados(livros):
     with open("livros.csv", "w", encoding="utf-8", newline="") as escritor_de_arquivo:
