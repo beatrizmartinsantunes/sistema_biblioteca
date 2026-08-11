@@ -7,7 +7,7 @@ def limpa(): # Limpa o terminal
 def cabecalho(): 
     print("Programa feito por Beatriz Martins")
    
-def carregar_dados():
+def carregar_dados(): # ele o que está no csv e coloca na lista
     
     with open("livros.csv", "r", encoding="utf-8") as leitor_de_arquivo: # "r" significa que não ira modificar nada do livros.csv
         leitor = csv.reader(leitor_de_arquivo)
@@ -22,20 +22,20 @@ def carregar_dados():
                     "status": dados[4],
                 }
                 livros.append(livro)# Vai anexar o livro na lista livros
-        
+        return livros # encerra e devolve livros para fora dessa função
     
 def salvar_dados(livros):
     with open("livros.csv", "w", encoding="utf-8", newline="") as escritor_de_arquivo:
         escritor = csv.writer(escritor_de_arquivo)
         for livro in livros:
-            linha = [
+            dados = [
                 livro["titulo"],
                 livro["autor"],
                 livro["ano"],
                 livro["isbn"],
                 livro["status"],
             ]
-            escritor.writerow(linha)
+            escritor.writerow(dados)
 
 def cadastrar_livro(livros):
     print("\nCADASTRO DE LIVRO:")
