@@ -112,19 +112,9 @@ def remover_livro(livros):
  
     print("\nLivro não encontrado")
     return livros
- 
-def obter_titulo(livro):
-    return livro["titulo"]
- 
-def obter_autor(livro):
-    return livro["autor"]
- 
-def obter_ano(livro):
-    return livro["ano"]
- 
 def organizar_e_listar(livros):
  
-    print("\nComo deseja organizar a lista?")
+    print("\nComo deseja organizar a lista?\n")
     print("1. Por Título (Ordem Alfabética)")
     print("2. Por Autor")
     print("3. Por Ano de Publicação")
@@ -132,39 +122,43 @@ def organizar_e_listar(livros):
     opcao_ordem = input("Escolha uma opção (1-4): ")
  
     if opcao_ordem == "1":
-        livros.sort(key=obter_titulo)
+        livros.sort(key=lambda x: x["titulo"])
         print("\n--- LIVROS ORDENADOS POR TÍTULO ---")
     elif opcao_ordem == "2":
-        livros.sort(key=obter_autor)
+        livros.sort(key=lambda x: x["autor"])
         print("\n--- LIVROS ORDENADOS POR AUTOR ---")
     elif opcao_ordem == "3":
-        livros.sort(key=obter_ano)
+        livros.sort(key=lambda x: x["ano"])
         print("\n--- LIVROS ORDENADOS POR ANO ---")
     else:
         print("\n--- TODOS OS LIVROS (ORDEM DE CADASTRO) ---")
  
     for livro in livros:
-        print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
+        print(
+            f"[{livro['status'].upper()}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}"
+        )
 
 def buscar_livros(livros):
-    
-    print("\nBUSCAR LIVROS")
-    busca = input("Digite o título ou autor: ")
+    """Busca livros usando um termo para título ou autor."""
+    print("\n--- BUSCAR LIVROS ---")
+    termo = input("Digite o título ou autor: ")
  
+    achou = False
     for livro in livros:
-        if busca in livro["titulo"] or busca in livro["autor"]:
+        if termo in livro["titulo"] or termo in livro["autor"]:
             print(
-                f"- [{livro['status'].upper()}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
-            
-    if False:
-        print("Nenhum livro encontrado")
+                f"- [{livro['status'].upper()}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}"
+            )
+            achou = True
  
+    if not achou:
+        print("Nenhum livro encontrado com esse termo.")
 def menu():
     acervo = carregar_dados()
 
     while True:
-        limpa()
-        cabecalho()
+        limpa()       # Limpa o terminal a cada ciclo do loop
+        cabecalho()   # Mostra o seu nome no topo
 
         print("\nMENU PRINCIPAL DA BIBLIOTECA:\n")
         print("1. Cadastrar Livro")
@@ -175,7 +169,7 @@ def menu():
         print("6. Remover Livro do Estoque")
         print("7. Sair")
     
-        opcao = input("Escolha uma opção: ")
+        opcao = input("\nEscolha uma opção: ")
     
         if opcao == "1":
             acervo = cadastrar_livro(acervo)
@@ -196,4 +190,5 @@ def menu():
             print("Opção inválida")
 
 
+# Agora basta chamar apenas a função menu() no final!
 menu()
