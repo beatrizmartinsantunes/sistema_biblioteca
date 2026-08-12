@@ -1,6 +1,6 @@
 import csv
 import os # Necessário para a função de limpar o terminal
-
+livros=[]# Livros é onde fica todos os livros na lista que é apagada quando o programa é finalizado
 def limpa(): # Limpa o terminal
     os.system('cls')
    
@@ -8,10 +8,10 @@ def cabecalho():
     print("Programa feito por Beatriz Martins")
    
 def carregar_dados(): # ele o que está no csv e coloca na lista
-    
+    global livros
     with open("livros.csv", "r", encoding="utf-8") as leitor_de_arquivo: # "r" significa que não ira modificar nada do livros.csv
         leitor = csv.reader(leitor_de_arquivo)
-        livros = [] # Livros é onde fica todos os livros na lista que é apagada quando o programa é finalizado
+        livros.clear()# limpa para evitar duplicar
         for dados in leitor: # os dados são as informacções de cada livro
         
                 livro = { # Livro é cada livro que fica em livros e tem dados
@@ -24,7 +24,8 @@ def carregar_dados(): # ele o que está no csv e coloca na lista
                 livros.append(livro)# Vai anexar o livro na lista livros
         return livros # encerra e devolve livros para fora dessa função
     
-def salvar_dados(livros): #vai passar a lista livros para livros.csv
+def salvar_dados():#vai passar a lista livros para livros.csv
+    global livros
     with open("livros.csv", "w", encoding="utf-8", newline="") as escritor_de_arquivo:# "w" escreve o que quero mas apaga o resto
         escritor = csv.writer(escritor_de_arquivo)
         for livro in livros: 
@@ -37,7 +38,8 @@ def salvar_dados(livros): #vai passar a lista livros para livros.csv
             ]
             escritor.writerow(dados)# Escreve a lista Livros no livros.csv
 
-def cadastrar_livro(livros):
+def cadastrar_livro():
+    global livros
     print("\nCADASTRO DE LIVRO:")
     titulo = input("Título: ")
     autor = input("Autor: ")
@@ -47,7 +49,7 @@ def cadastrar_livro(livros):
     for livro in livros:
         if livro["isbn"] == isbn:
             print("\nJá existe um livro com este ISBN!")
-            return livros
+            return 
 
     novo_livro = {
         "titulo": titulo,
@@ -58,11 +60,12 @@ def cadastrar_livro(livros):
     }
 
     livros.append(novo_livro) # vai adicionar o novo livros cadastrado na lista
-    salvar_dados(livros)# vai salvar a lista com o novo ivro em livro.csv
+    salvar_dados()# vai salvar a lista com o novo ivro em livro.csv
     print(f"\nLivro {titulo} cadastrado com sucesso!!!")
-    return livros
+    return 
 
-def emprestar_livro(livros):
+def emprestar_livro():
+    global livros
     print("\nREGISTRAR EMPRÉSTIMO")
     isbn_busca = input("Digite o ISBN do livro: ")
 
@@ -70,17 +73,18 @@ def emprestar_livro(livros):
         if livro["isbn"] == isbn_busca:
             if livro["status"] == "emprestado":
                 print("\nEste livro já está emprestado!")
-                return livros # Para a função e volta par o menu, pois foi onde q começou
+                return # Para a função e volta par o menu, pois foi onde q começou
             
             livro["status"] = "emprestado" # se não estiver emprestado vai ficar emprestádo(modificou na lista)
-            salvar_dados(livros)#salvou a lista no livros.csv
+            salvar_dados()#salvou a lista no livros.csv
             print("\nEmpréstimo realizado com sucesso!")
-            return livros
+            return 
 
     print("\nLivro não encontrado.")# Dessa forma ele vai ler toda a lista, se colocar if,elif e else ele vai ler só a primeira e da nçao encontrado
-    return livros
+    return 
 
-def devolver_livro(livros):
+def devolver_livro():
+    global livros
     print("\nREGISTRAR DEVOLUÇÃO")
     isbn_busca = input("Digite o ISBN do livro: ")
 
@@ -88,32 +92,32 @@ def devolver_livro(livros):
         if livro["isbn"] == isbn_busca:
             if livro["status"] == "disponível":
                 print("\nEste livro já está disponível!")
-                return livros
+                return 
             
             livro["status"] = "disponível"
-            salvar_dados(livros)
+            salvar_dados()
             print("\nDevolução realizada com sucesso!")
-            return livros
+            return
 
     print("\nLivro não encontrado.")
-    return livros
+    return
  
-def remover_livro(livros):
-
+def remover_livro():
+    global livros
     print("\nREMOVER LIVRO DO ESTOQUE")
     isbn_busca = input("Digite o ISBN do livro que deseja remover: ")
  
     for i in range(len(livros)):# numera os livros na lista livros
         if livros[i]["isbn"] == isbn_busca: # ve o livro com um numero que é o que vc quer apagar
             livro_removido = livros.pop(i)# apaga o livro que estava na posição na lista
-            salvar_dados(livros) # atualiza a lista no livros.csv
+            salvar_dados() # atualiza a lista no livros.csv
             print(f"\nO livro {livro_removido} foi removido com sucesso!")
-            return livros
+            return
  
     print("\nLivro não encontrado")
-    return livros
-def organizar_e_listar(livros): #Não altera livros.csv e sim a lista
- 
+    return
+def organizar_e_listar():#Não altera livros.csv e sim a lista
+    global livros
     print("\nComo deseja organizar a lista?")
     print("1. Por Título (Ordem Alfabética)")
     print("2. Por Autor")
@@ -144,7 +148,7 @@ def organizar_e_listar(livros): #Não altera livros.csv e sim a lista
                 print(linha)
             
 
-def buscar_livros(livros):
+def buscar_livros():
     print("\nBUSCAR LIVROS:")
     busca = input("Digite o título ou autor: ")
     
@@ -157,7 +161,7 @@ def buscar_livros(livros):
         print("Nenhum livro encontrado com esse termo.")
 
 def menu():
-    livros = carregar_dados()# ele le livros.csv e adiciona a lista livros
+    carregar_dados()# ele le livros.csv e adiciona a lista livros
 
     while True:
 
@@ -174,17 +178,17 @@ def menu():
         opcao = input("\n-Escolha uma opção: ")
     
         if opcao == "1":
-            livros = cadastrar_livro(livros)
+            cadastrar_livro()
         elif opcao == "2":
-            livros = emprestar_livro(livros)
+            emprestar_livro()
         elif opcao == "3":
-            livros = devolver_livro(livros)
+            devolver_livro()
         elif opcao == "4":
-            organizar_e_listar(livros)# não precisa colocar = pois não altera nada
+            organizar_e_listar()# não precisa colocar = pois não altera nada
         elif opcao == "5":
-            buscar_livros(livros)
+            buscar_livros()
         elif opcao == "6":
-            livros = remover_livro(livros)
+            remover_livro()
         elif opcao == "7":
             print("TCHAU!!")
             break
