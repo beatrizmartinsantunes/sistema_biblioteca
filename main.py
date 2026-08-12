@@ -161,10 +161,11 @@ def buscar_livros():
         print("Nenhum livro encontrado com esse termo.")
 
 def menu():
-    carregar_dados()# ele le livros.csv e adiciona a lista livros
+    
 
     while True:
 
+        carregar_dados()# ele le livros.csv e adiciona a lista livros
 
         print("\nMENU PRINCIPAL DA BIBLIOTECA:")
         print("1. Cadastrar Livro")
