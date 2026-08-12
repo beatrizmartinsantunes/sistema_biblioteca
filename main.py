@@ -112,7 +112,7 @@ def remover_livro(livros):
  
     print("\nLivro não encontrado")
     return livros
-def organizar_e_listar(livros):
+def organizar_e_listar(livros): #Não altera livros.csv e sim a lista
  
     print("\nComo deseja organizar a lista?")
     print("1. Por Título (Ordem Alfabética)")
@@ -135,11 +135,14 @@ def organizar_e_listar(livros):
         livros.sort(key=lambda x: x["ano"])
         print("\nLIVROS ORDENADOS POR ANO:")
         for livro in livros:
-                    print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
+            print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
     else:
         print("\nTODOS OS LIVROS (ORDEM DE CADASTRO):")
- 
-   
+        with open("livros.csv", "r", encoding="utf-8", newline="") as arquivo:
+            leitor = csv.reader(arquivo) # assim ele vai print do livro.csv que não foi alterado
+            for linha in leitor:
+                print(linha)
+            
 
 def buscar_livros(livros):
     print("\nBUSCAR LIVROS:")
@@ -148,7 +151,7 @@ def buscar_livros(livros):
     encontrado = 0
     for livro in livros:
         if busca in livro["titulo"] or busca in livro["autor"]:
-            print(f"[{livro['status'].()}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}") 
+            print(f"[{livro['status']}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}") 
             encontrado = encontrado+1
     if encontrado == 0:
         print("Nenhum livro encontrado com esse termo.")
