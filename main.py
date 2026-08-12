@@ -157,7 +157,7 @@ def buscar_livros(livros):
         print("Nenhum livro encontrado com esse termo.")
 
 def menu():
-    acervo = carregar_dados()
+    livros = carregar_dados()# ele le livros.csv e adiciona a lista livros
 
     while True:
 
@@ -171,25 +171,25 @@ def menu():
         print("6. Remover Livro do Estoque")
         print("7. Sair")
     
-        opcao = input("\nEscolha uma opção: ")
+        opcao = input("\n-Escolha uma opção: ")
     
         if opcao == "1":
-            acervo = cadastrar_livro(acervo)
+            livros = cadastrar_livro(livros)
         elif opcao == "2":
-            acervo = emprestar_livro(acervo)
+            livros = emprestar_livro(livros)
         elif opcao == "3":
-            acervo = devolver_livro(acervo)
+            livros = devolver_livro(livros)
         elif opcao == "4":
-            organizar_e_listar(acervo)
+            organizar_e_listar(livros)# não precisa colocar = pois não altera nada
         elif opcao == "5":
-            buscar_livros(acervo)
+            buscar_livros(livros)
         elif opcao == "6":
-            acervo = remover_livro(acervo)
+            livros = remover_livro(livros)
         elif opcao == "7":
-            print("\nTCHAU!!")
+            print("TCHAU!!")
             break
         else:
-            print("Opção inválida")
+            print("ERRO!!!")
             break
 limpa()
 menu()
