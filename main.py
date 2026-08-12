@@ -125,17 +125,17 @@ def organizar_e_listar(livros): #Não altera livros.csv e sim a lista
         livros.sort(key=lambda x: x["titulo"])#Tradução: "Organize a lista olhando para o título de cada livro (x)".
         print("\nLIVROS ORDENADOS POR TÍTULO:")
         for livro in livros:
-            print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
+            print(f"['{livro['titulo']}', '{livro['autor']}', '{livro['ano']}', '{livro['isbn']}', '{livro['status']}']")
     elif opcao_ordem == "2":
         livros.sort(key=lambda x: x["autor"])#sort ordena e key=lambda x: x fala como
         print("\nLIVROS ORDENADOS POR AUTOR:")
         for livro in livros:
-            print(f"['{livro['título']}', '{livro['autor']}', '{livro['ano']}', '{livro['isbn']}', '{livro['status']}'")
+            print(f"['{livro['titulo']}', '{livro['autor']}', '{livro['ano']}', '{livro['isbn']}', '{livro['status']}']")
     elif opcao_ordem == "3":
         livros.sort(key=lambda x: x["ano"])
         print("\nLIVROS ORDENADOS POR ANO:")
         for livro in livros:
-            print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
+            print(f"['{livro['titulo']}', '{livro['autor']}', '{livro['ano']}', '{livro['isbn']}', '{livro['status']}']")
     else:
         print("\nTODOS OS LIVROS (ORDEM DE CADASTRO):")
         with open("livros.csv", "r", encoding="utf-8", newline="") as arquivo:
@@ -151,7 +151,7 @@ def buscar_livros(livros):
     encontrado = 0
     for livro in livros:
         if busca in livro["titulo"] or busca in livro["autor"]:
-            print(f"[{livro['status']}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}") 
+            print(f"['{livro['titulo']}', '{livro['autor']}', '{livro['ano']}', '{livro['isbn']}', '{livro['status']}']")
             encontrado = encontrado+1
     if encontrado == 0:
         print("Nenhum livro encontrado com esse termo.")
