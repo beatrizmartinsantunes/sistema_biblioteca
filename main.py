@@ -24,10 +24,10 @@ def carregar_dados(): # ele o que está no csv e coloca na lista
                 livros.append(livro)# Vai anexar o livro na lista livros
         return livros # encerra e devolve livros para fora dessa função
     
-def salvar_dados(livros):
-    with open("livros.csv", "w", encoding="utf-8", newline="") as escritor_de_arquivo:
+def salvar_dados(livros): #vai passar a lista livros para livros.csv
+    with open("livros.csv", "w", encoding="utf-8", newline="") as escritor_de_arquivo:# "w" escreve o que quero mas apaga o resto
         escritor = csv.writer(escritor_de_arquivo)
-        for livro in livros:
+        for livro in livros: 
             dados = [
                 livro["titulo"],
                 livro["autor"],
@@ -35,7 +35,7 @@ def salvar_dados(livros):
                 livro["isbn"],
                 livro["status"],
             ]
-            escritor.writerow(dados)
+            escritor.writerow(dados)# Escreve a lista Livros no livros.csv
 
 def cadastrar_livro(livros):
     print("\nCADASTRO DE LIVRO:")
@@ -57,9 +57,9 @@ def cadastrar_livro(livros):
         "status": "disponível",
     }
 
-    livros.append(novo_livro)
-    salvar_dados(livros)
-    print(f"\nLivro '{titulo}' cadastrado com sucesso!!!")
+    livros.append(novo_livro) # vai adicionar o novo livros cadastrado na lista
+    salvar_dados(livros)# vai salvar a lista com o novo ivro em livro.csv
+    print(f"\nLivro {titulo} cadastrado com sucesso!!!")
     return livros
 
 def emprestar_livro(livros):
@@ -70,14 +70,14 @@ def emprestar_livro(livros):
         if livro["isbn"] == isbn_busca:
             if livro["status"] == "emprestado":
                 print("\nEste livro já está emprestado!")
-                return livros
+                return livros # Para a função e volta par o menu, pois foi onde q começou
             
-            livro["status"] = "emprestado"
-            salvar_dados(livros)
+            livro["status"] = "emprestado" # se não estiver emprestado vai ficar emprestádo(modificou na lista)
+            salvar_dados(livros)#salvou a lista no livros.csv
             print("\nEmpréstimo realizado com sucesso!")
             return livros
 
-    print("\nLivro não encontrado.")
+    print("\nLivro não encontrado.")# Dessa forma ele vai ler toda a lista, se colocar if,elif e else ele vai ler só a primeira e da nçao encontrado
     return livros
 
 def devolver_livro(livros):
@@ -103,18 +103,18 @@ def remover_livro(livros):
     print("\nREMOVER LIVRO DO ESTOQUE")
     isbn_busca = input("Digite o ISBN do livro que deseja remover: ")
  
-    for i in range(len(livros)):
-        if livros[i]["isbn"] == isbn_busca:
-            livro_removido = livros.pop(i)
-            salvar_dados(livros)
-            print(f"\nO livro foi removido com sucesso!")
+    for i in range(len(livros)):# numera os livros na lista livros
+        if livros[i]["isbn"] == isbn_busca: # ve o livro com um numero que é o que vc quer apagar
+            livro_removido = livros.pop(i)# apaga o livro que estava na posição na lista
+            salvar_dados(livros) # atualiza a lista no livros.csv
+            print(f"\nO livro {livro_removido} foi removido com sucesso!")
             return livros
  
     print("\nLivro não encontrado")
     return livros
 def organizar_e_listar(livros):
  
-    print("\nComo deseja organizar a lista?\n")
+    print("\nComo deseja organizar a lista?")
     print("1. Por Título (Ordem Alfabética)")
     print("2. Por Autor")
     print("3. Por Ano de Publicação")
@@ -122,19 +122,24 @@ def organizar_e_listar(livros):
     opcao_ordem = input("Escolha uma opção (1-4): ")
  
     if opcao_ordem == "1":
-        livros.sort(key=lambda x: x["titulo"])
+        livros.sort(key=lambda x: x["titulo"])#Tradução: "Organize a lista olhando para o título de cada livro (x)".
         print("\nLIVROS ORDENADOS POR TÍTULO:")
+        for livro in livros:
+            print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
     elif opcao_ordem == "2":
-        livros.sort(key=lambda x: x["autor"])
+        livros.sort(key=lambda x: x["autor"])#sort ordena e key=lambda x: x fala como
         print("\nLIVROS ORDENADOS POR AUTOR:")
+        for livro in livros:
+            print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
     elif opcao_ordem == "3":
         livros.sort(key=lambda x: x["ano"])
         print("\nLIVROS ORDENADOS POR ANO:")
+        for livro in livros:
+                    print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
     else:
         print("\nTODOS OS LIVROS (ORDEM DE CADASTRO):")
  
-    for livro in livros:
-        print(f"[{livro['status'].upper()}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
+   
 
 def buscar_livros(livros):
     print("\nBUSCAR LIVROS:")
@@ -143,7 +148,7 @@ def buscar_livros(livros):
     encontrado = 0
     for livro in livros:
         if busca in livro["titulo"] or busca in livro["autor"]:
-            print(f"[{livro['status'].upper()}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}") 
+            print(f"[{livro['status'].()}] {livro['titulo']} por {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}") 
             encontrado = encontrado+1
     if encontrado == 0:
         print("Nenhum livro encontrado com esse termo.")
