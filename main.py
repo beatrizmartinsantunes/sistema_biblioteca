@@ -130,7 +130,7 @@ def organizar_e_listar(livros): #Não altera livros.csv e sim a lista
         livros.sort(key=lambda x: x["autor"])#sort ordena e key=lambda x: x fala como
         print("\nLIVROS ORDENADOS POR AUTOR:")
         for livro in livros:
-            print(f"[{livro['status']}] {livro['titulo']} - {livro['autor']} ({livro['ano']}) | ISBN: {livro['isbn']}")
+            print(f"['{livro['título']}', '{livro['autor']}', '{livro['ano']}', '{livro['isbn']}', '{livro['status']}'")
     elif opcao_ordem == "3":
         livros.sort(key=lambda x: x["ano"])
         print("\nLIVROS ORDENADOS POR ANO:")
