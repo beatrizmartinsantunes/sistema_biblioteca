@@ -44,7 +44,10 @@ def cadastrar_livro():
     titulo = input("Título: ")
     autor = input("Autor: ")
     ano = input("Ano de Publicação: ")
-    isbn = input("Código/ISBN: ")
+    isbn = int(input("Código/ISBN: "))
+    if(isbn<9999999999):
+        print("ISBN não encontrado")
+        return
 
     for livro in livros:
         if livro["isbn"] == isbn:
