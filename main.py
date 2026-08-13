@@ -140,12 +140,15 @@ def organizar_e_listar():#Não altera livros.csv e sim a lista
         print("\nLIVROS ORDENADOS POR ANO:")
         for livro in livros:
             print(f"['{livro['titulo']}', '{livro['autor']}', '{livro['ano']}', '{livro['isbn']}', '{livro['status']}']")
-    else:
+    elif opcao_ordem == "4":
         print("\nTODOS OS LIVROS (ORDEM DE CADASTRO):")
         with open("livros.csv", "r", encoding="utf-8", newline="") as arquivo:
             leitor = csv.reader(arquivo) # assim ele vai print do livro.csv que não foi alterado
             for linha in leitor:
                 print(linha)
+    else: 
+        print("Opção errada!")
+        return
             
 
 def buscar_livros():
